@@ -48,9 +48,11 @@ async function load(){
         document.querySelector('.game-meta').textContent = 
         `${game.developer} • ${formatYearFromStr(game.release_date)}`;
 
-        document.querySelector('.game-genre').textContent = game.genre
+        document.querySelector('.game-genre').textContent = game.genre;
 
         
+
+
 
           
         
