@@ -41,7 +41,18 @@ async function load(){
 
         // changing Hero section
         document.querySelector("#game-title").textContent = game.title;
+        const heroImage = document.querySelector("#hero-image");
+        heroImage.src = game.cover_url;
+        heroImage.alt = game.title;
 
+        document.querySelector('.game-meta').textContent = 
+        `${game.developer} • ${formatYearFromStr(game.release_date)}`;
+
+        document.querySelector('.game-genre').textContent = game.genre
+
+        
+
+          
         
 }
 
