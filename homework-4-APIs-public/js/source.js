@@ -9,9 +9,9 @@ function formatYearFromStr(dateString) {
 function formatPercentage(value) {
   return `${(value * 100).toFixed(2)}%`;
 }
-
-localStorage.setItem("game_id", "42913");
-localStorage.setItem("api_key", "the api key goes here");
+                 //  ID for Crusader Kings III
+localStorage.setItem("game_id", "11710");
+// localStorage.setItem("api_key", "API_KEY_HERE");
 
 
 
@@ -40,21 +40,50 @@ async function load(){
 
 
         // changing Hero section
-        document.querySelector("#game-title").textContent = game.title;
-        const heroImage = document.querySelector("#hero-image");
-        heroImage.src = game.cover_url;
-        heroImage.alt = game.title;
+        document.querySelector("#game-name").textContent = game.name;
 
-        document.querySelector('.game-meta').textContent = 
-        `${game.developer} • ${formatYearFromStr(game.release_date)}`;
+        const heroImage = document.querySelector(".game-image img");
+        heroImage.src = game.image;
+        heroImage.alt = game.name;
 
-        document.querySelector('.game-genre').textContent = game.genre;
+        // make the image of the hero section fit box nest to title
+        heroImage.style.width = "420px";
+        heroImage.style.maxWidth = "100%";
+        heroImage.style.height = "auto";
+        heroImage.style.aspectRatio = game.image_aspect_ratio;
+        heroImage.style.objectFit = "cover";
 
-        
+        document.querySelector(".game-meta").textContent =
+          `${game.developer} • ${formatYearFromStr(game.release_date)}`;
+
+        document.querySelector(".game-genre").textContent = game.genre;
+
+        // Changing News section 
+        let newsItems = news.news;
 
 
+        if (!newsItems || newsItems.length === 0) {
+          const backupResponse = await fetch(`https://api.gamebrain.co/v1/games/1261640/news?api-key=${apiKey}`);
+          const backup = await backupResponse.json();
+          newsItems = backup.news;
+        }
 
-          
+        const newsCards = document.querySelectorAll('.news-card');
+
+        newsCards.forEach((card, i) => {
+          const item = newsItems[i];
+
+          if (!item) {
+            card.style.display = 'none';
+            return;
+          }
+
+          card.querySelector('img').src = item.image;
+          card.querySelector('img').alt = item.title;
+          card.querySelector('h3').textContent = item.title;
+          card.querySelector('.news-published').textContent = `Published ${item.published}`;
+        });
+
         
 }
 
