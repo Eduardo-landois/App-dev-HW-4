@@ -11,7 +11,7 @@ function formatPercentage(value) {
 }
                  //  ID for Crusader Kings III
 localStorage.setItem("game_id", "11710");
-// localStorage.setItem("api_key", "API_KEY_HERE");
+localStorage.setItem("api_key", "e1e1bc67adc7474d8dd4e78637e5caf2");
 
 
 
