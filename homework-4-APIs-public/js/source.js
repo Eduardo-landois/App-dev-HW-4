@@ -84,6 +84,26 @@ async function load(){
           card.querySelector('.news-published').textContent = `Published ${item.published}`;
         });
 
+        // Changing the similar games section
+        const similarGames = similar.results;
+        const gameCards = document.querySelectorAll('.game-card');
+
+        gameCards.forEach((card, i) => {
+          const sg = similarGames[i];
+
+          if (!sg) {
+            card.style.display = 'none';
+            return;
+          }
+
+          card.querySelector('img').src = sg.screenshots[0] || sg.image;
+          card.querySelector('img').alt = sg.name;
+          card.querySelector('h3').textContent = sg.name;
+
+          const metaSpans = card.querySelectorAll('.game-card-meta span');
+          metaSpans[0].textContent = Math.trunc(sg.year);
+          metaSpans[1].textContent = formatPercentage(sg.rating.mean);
+        });
         
 }
 
